@@ -30,7 +30,7 @@ const articleType = new GraphQLObjectType({
       type: new GraphQLList(GraphQLString),
     },
     title: {
-      type: GraphQLBoolean,
+      type: GraphQLString,
     },
   }),
 });
