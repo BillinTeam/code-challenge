@@ -3,7 +3,7 @@ BILLIN CODE CHALLENGE
 
 Welcome to Billin code challenge!
 
-This project includes the scaffold in order to start the code challenge. You will need to proceed with installation and configuration and after that, you can do the exercise. It will have 3 main parts we are going to explain. This code challenge has been made in order to test fullstack skills. You will need to use **GraphQL**, **NodeJS**, **ReactJS** and **PostCSS**. The database has been made with **MongoDB** and **Jest** is already configured in order to test this app.
+This project includes the scaffold in order to start the code challenge. You will need to proceed with installation and configuration and after that, you can do the exercise. It will have 3 main parts we are going to explain. This code challenge has been made in order to test fullstack skills. You will need to use **GraphQL**, **NodeJS** and **ReactJS**. If you want to add any CSS preprocessor or similar, please use **PostCSS**. The database has been made with **MongoDB** and **Jest** is already configured in order to test this app.
 
 Go ahead and let us know if you have any question or feedback.
 
@@ -46,7 +46,7 @@ This code challenge have three main parts. You don´t have to do all the exercis
 
 We have a list of 10 news articles. We need to see how would you represent this data in `http://localhost:3000`
 
-You are free of using one or other way to organize the components, containers, styles, etc. You have to use `ReactJS` and `PostCSS`, but don't worry about the "beauty" of your app, we are going to focus in the code (Javascript and CSS) and the way you represent the architecture of your app. This project has been configured with babel so you should use ES6/ES7. This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app) so go ahead if you need more information about the settings.
+You are free of using one or other way to organize the components, containers, styles, etc. You have to use `ReactJS` and `CSS` (remember, if you want to add any CSS preprocessor please use **PostCSS**), but don't worry about the "beauty" of your app, we are going to focus in the code (Javascript and CSS) and the way you represent the architecture of your app. This project has been configured with babel so you should use ES6/ES7. This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app) so go ahead if you need more information about the settings.
 
 The minimum structure has to be:
 
