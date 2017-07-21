@@ -23,7 +23,7 @@ class Cards extends Component {
 
   renderCards = () => {
     return this.state.articles.map( cardData => {
-      return <Card { ...cardData }/>
+      return <Card key={ cardData.id } { ...cardData }/>
     })
   }
 

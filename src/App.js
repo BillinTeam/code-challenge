@@ -7,10 +7,6 @@ import Footer from './components/Footer'
 import Page from './components/Page'
 
 class App extends Component {
-  // definition
-  constructor(props) {
-    super(props);
-  }
 
   // Renders
   render() {
