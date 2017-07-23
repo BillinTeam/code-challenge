@@ -1,5 +1,6 @@
 import {
-  SET_CARDS
+  SET_CARDS,
+  REMOVE_CARD
 } from './actions'
 
 const initialState = {
@@ -12,6 +13,11 @@ export default function cards(state = initialState, action) {
       return {
         ...state,
         articles: action.cards
+      }
+    case REMOVE_CARD:
+      return {
+        ...state,
+        articles: state.articles.filter( e => e.id !== action.id)
       }
     default:
       return state;

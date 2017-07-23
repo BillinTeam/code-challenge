@@ -8,7 +8,8 @@ export const ARTICLES_QUERY = `{
 }`;
 
 export function articleQuery(id){
-  return(`{
+  return(
+    `{
       article(id: "${id}") {
         author
         content
@@ -17,5 +18,16 @@ export function articleQuery(id){
         title
       }
     }`
+  );
+}
+
+export function deleteArticle(id){
+  return(`
+      mutation {
+        deleteArticle(id: "${id}"){
+          id
+        }
+      }
+    `
   );
 }
