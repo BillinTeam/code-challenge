@@ -1,28 +1,25 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
+
 import request from '../../request';
 import { ARTICLES_QUERY } from '../../queries';
 
+import { setCards } from './actions'
+
 import Card from './components/card'
-// import '../../theme/Cards.css'
 
 class Cards extends Component {
-  // definition
-  constructor(props) {
-    super(props);
-    this.state = {
-      articles: [],
-    };
-  }
 
   // lifecycle
   componentWillMount() {
     request(ARTICLES_QUERY).then(response => {
-      this.setState({ articles: response.data.articles });
+      this.props.setCards(response.data.articles);
     });
   }
 
   renderCards = () => {
-    return this.state.articles.map( cardData => {
+    return this.props.articles.map( cardData => {
       return <Card key={ cardData.id } { ...cardData }/>
     })
   }
@@ -37,4 +34,14 @@ class Cards extends Component {
   }
 }
 
-export default Cards;
+function mapStateToProps(state) {
+  return {
+    articles: state.cards.articles
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({setCards}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cards);
