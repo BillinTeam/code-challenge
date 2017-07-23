@@ -4,6 +4,7 @@ import {
   GraphQLString,
   GraphQLList,
   GraphQLSchema,
+  GraphQLNonNull
 } from 'graphql';
 import db from './db';
 
@@ -45,6 +46,18 @@ const Query = new GraphQLObjectType({
         return db.Article.find();
       },
     },
+    article: {
+      type: articleType,
+      args: {
+        id: {
+          name: 'id',
+          type: new GraphQLNonNull(GraphQLString)
+        }
+      },
+      resolve(root, {id}) {
+        return db.Article.findOne({ _id: id });
+      }
+    }
   }),
 });
 

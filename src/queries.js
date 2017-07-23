@@ -6,3 +6,16 @@ export const ARTICLES_QUERY = `{
     title
   }
 }`;
+
+export function articleQuery(id){
+  return(`{
+      article(id: "${id}") {
+        author
+        content
+        published
+        tags
+        title
+      }
+    }`
+  );
+}
