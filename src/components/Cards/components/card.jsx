@@ -6,7 +6,7 @@ import { browserHistory } from 'react-router'
 import '../../../theme/Card.css'
 
 import request from '../../../request';
-import { deleteArticle } from '../../../queries';
+import { deleteArticle, updateArticle } from '../../../queries';
 
 import { removeCard } from '../actions'
 
@@ -21,8 +21,18 @@ class Card extends Component {
     });
   }
 
+  updateArticle = (id) => {
+    request(updateArticle(id)).then(response => {
+      console.log(response)
+    });
+  }
+
+  editCard = () => {
+    browserHistory.push(`article/${this.props.id}/edit`)
+  }
+
   openCard = () => {
-    browserHistory.push(`/${this.props.id}`)
+    browserHistory.push(`article/${this.props.id}`)
   }
 
   // Renders
@@ -41,6 +51,10 @@ class Card extends Component {
         <Button
           name={ 'Delete' }
           onClick={ () => this.deleteArticle(id) }
+        />
+        <Button
+          name={ 'Edit' }
+          onClick={ () => this.editCard() }
         />
       </div>
     );

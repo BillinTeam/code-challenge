@@ -64,6 +64,38 @@ const Query = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
+    createArticle: {
+      type: articleType,
+      args: {
+        author: {
+          name: 'author',
+          type: GraphQLString,
+        },
+        content: {
+          name: 'content',
+          type: GraphQLString,
+        },
+        excerpt: {
+          name: 'excerpt',
+          type: GraphQLString,
+        },
+        published: {
+          name: 'published',
+          type: GraphQLBoolean,
+        },
+        tags: {
+          name: 'tags',
+          type: new GraphQLList(GraphQLString),
+        },
+        title: {
+          name: 'title',
+          type: GraphQLString,
+        },
+      },
+      resolve(obj, {author, content, excerpt, published, tags, title}) {
+        return db.Article.create({ author, content, excerpt, published, tags, title });
+      }
+    },
     deleteArticle: {
       type: articleType,
       args: {
@@ -75,6 +107,43 @@ const Mutation = new GraphQLObjectType({
       resolve(obj, {id}) {
         console.log(id);
         return db.Article.findOneAndRemove({ _id: id });
+      }
+    },
+    updateArticle: {
+      type: articleType,
+      args: {
+        author: {
+          name: 'author',
+          type: GraphQLString,
+        },
+        content: {
+          name: 'content',
+          type: GraphQLString,
+        },
+        excerpt: {
+          name: 'excerpt',
+          type: GraphQLString,
+        },
+        id: {
+          name: 'id',
+          type: new GraphQLNonNull(GraphQLString)
+        },
+        published: {
+          name: 'published',
+          type: GraphQLBoolean,
+        },
+        tags: {
+          name: 'tags',
+          type: new GraphQLList(GraphQLString),
+        },
+        title: {
+          name: 'title',
+          type: GraphQLString,
+        },
+      },
+      resolve(obj, {id, author, content, excerpt, published, tags, title}) {
+        console.log(id);
+        return db.Article.findOneAndUpdate({ _id: id }, { author, content, excerpt, published, tags, title });
       }
     },
   }),

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
+import { browserHistory } from 'react-router'
 
 import request from '../../request';
 import { articleQuery } from '../../queries';
 
 import { setArticle } from './actions'
+
+import Button from '../Button'
 
 class Article extends Component {
 
@@ -31,6 +34,10 @@ class Article extends Component {
         <h4>{ `Published: ${published? 'yes' : 'no'}` }</h4>
         <h4>{ tags && `Tags: ${tags.join(', ')}` }</h4>
         <p>{ content }</p>
+        <Button
+          name={ 'See cards' }
+          onClick={ () => browserHistory.push('/') }
+        />
       </div>
     );
   }

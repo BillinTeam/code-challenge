@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
+import { browserHistory } from 'react-router'
 
 import request from '../../request';
 import { ARTICLES_QUERY } from '../../queries';
 
 import { setCards } from './actions'
 
+import Button from '../Button'
 import Card from './components/card'
 
 class Cards extends Component {
@@ -19,7 +21,7 @@ class Cards extends Component {
   }
 
   renderCards = () => {
-    return this.props.articles.map( cardData => {
+    return this.props.articles && this.props.articles.map( cardData => {
       return <Card key={ cardData.id } { ...cardData }/>
     })
   }
@@ -28,6 +30,10 @@ class Cards extends Component {
   render() {
     return (
       <div className="cards">
+        <Button
+          name={ 'New article' }
+          onClick={ () => browserHistory.push('/articles/new') }
+        />
         { this.renderCards() }
       </div>
     );

@@ -13,6 +13,7 @@ import * as reducers from './reducers/index'
 import App from './App';
 import Article from './components/Article'
 import Cards from './components/Cards'
+import Form from './components/Form'
 
 
 // Add the reducer to your store on the `routing` key
@@ -35,7 +36,11 @@ ReactDOM.render(
     <Router history={history}>
       <Route path="/" component={App}>
         <IndexRoute  component={Cards} />
-        <Route path="/:id" component={Article} >
+        <Route path="/article/:id" component={Article} >
+        </Route>
+        <Route path="/article/:id/edit" component={Form} >
+        </Route>
+        <Route path="/articles/new" component={Form} >
         </Route>
       </Route>
     </Router>
