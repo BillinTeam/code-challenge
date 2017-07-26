@@ -1,0 +1,11 @@
+.form div {
+  margin: 1em;
+}
+
+.form div label input{
+  margin-left: 0.5em;
+}
+
+.form .id-hidden {
+  display: none;
+}
