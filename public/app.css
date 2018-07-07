@@ -1,0 +1,11 @@
+.article-list .article{
+    background: #ededed;
+    margin-bottom:20px;
+    transition: 0.25s all;
+}
+.article-list .article:hover{
+    box-shadow: 0 0 23px -5px #666;
+}
+    .article-list .article .meta{
+        padding: 10px;
+    }
