@@ -6,7 +6,7 @@ import {
   GraphQLSchema,
 } from 'graphql';
 import db from './db';
-
+import { Types } from 'mongoose';
 const articleType = new GraphQLObjectType({
   name: 'Article',
   description: 'This represents a Article',
@@ -41,7 +41,17 @@ const Query = new GraphQLObjectType({
   fields: () => ({
     articles: {
       type: new GraphQLList(articleType),
-      resolve() {
+      args: {
+        id: {
+          type: GraphQLString
+        }
+      },
+      resolve(_, { id }) {
+
+        if (typeof id != "undefined"){
+          return db.Article.find({ _id: id });
+        }
+
         return db.Article.find();
       },
     },

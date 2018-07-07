@@ -13,7 +13,7 @@ const Article = mongoose.model('Article', {
   tags: [String],
   title: String,
 });
-
+/*
 Article.remove({}, (err) => {
   if (!err) {
     _.times(10, () => {
@@ -35,5 +35,6 @@ ${Faker.lorem.paragraphs()}
     });
   }
 });
+*/
 
 export default { Article };
