@@ -14,5 +14,6 @@ export const ARTICLE_QUERY = (articleId) => (`{
     excerpt
     id
     title
+    content
   }
 }`);

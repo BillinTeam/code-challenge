@@ -14,9 +14,12 @@ class Article extends Component {
         if (!this.props.article)
             return null;
 
+        const {title, content } = this.props.article;
+
         return (
             <div className="article">
-                {this.props.article.title}
+                <h1>{title}</h1>
+                {content}
             </div>
         );
     }
