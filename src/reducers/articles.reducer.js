@@ -1,17 +1,14 @@
-/// action types
-const API_CALL_REQUEST = "API_CALL_REQUEST";
-const API_CALL_SUCCESS = "API_CALL_SUCCESS";
-const API_CALL_FAILURE = "API_CALL_FAILURE";
+import { ARTICLE_ACTIONS } from "../actions";
 
 
 export default function (state = null, action) {
-  
+  console.log('action',action,'state',state)
   switch (action.type) {
-    case API_CALL_REQUEST:
-      return null;
-    case API_CALL_SUCCESS:
+    case ARTICLE_ACTIONS.API_GET_ARTICLES_REQUEST:
+      return state;
+      case ARTICLE_ACTIONS.API_GET_ARTICLES_SUCCESS:
       return action.articles;
-    case API_CALL_FAILURE:
+      case ARTICLE_ACTIONS.API_GET_ARTICLES_FAILURE:
       return null;
     default:
       return state;

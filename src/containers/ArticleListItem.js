@@ -18,7 +18,9 @@ class ArticleListItem extends Component {
                     <div className="title"><b>{title}</b></div>
                     <div className="excerpt">{excerpt.substr(0, 100) + "..."}</div>
                     <div className="text-right">
-                        <Link className="btn btn-primary" to={this.articleUrl}>Read more</Link>
+                        <Link className="btn btn-primary" to={this.articleUrl}>
+                            Read more
+                        </Link>
                     </div>
                 </div>
             </div>

@@ -25,12 +25,10 @@ const store = createStore(
       sagaMiddleware
     )
   )
-
 )
 
 // then run the saga
 sagaMiddleware.run(mySaga)
-store.dispatch({ type: 'API_CALL_REQUEST' });
 
 ReactDOM.render(
   <Provider store={store}>

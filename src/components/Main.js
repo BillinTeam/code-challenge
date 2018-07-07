@@ -9,7 +9,7 @@ class Main extends Component {
         return <div>
             <Switch>
                 <Route exact path='/' component={ArticleList} />
-                <Route path='/:id' component={Article} />
+                <Route path='/:articleId' component={Article} />
             </Switch>
         </div>;
     }
