@@ -7,6 +7,17 @@ export const ARTICLES_QUERY = `{
   }
 }`;
 
+export const ARTICLE_INSERT = (a)=>(`mutation {
+  createArticle(input: {
+   title:"${a.title}",
+   content: "${a.content}",
+   author: "${a.author}",
+   excerpt:"${a.excerpt}",
+   tags:"${JSON.stringify(a.tags)}",
+  }) {
+   content
+ }
+}`);
 
 export const ARTICLE_QUERY = (articleId) => (`{
   articles(id:"${articleId}"){

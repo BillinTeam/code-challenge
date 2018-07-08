@@ -10,7 +10,10 @@ class Header extends Component {
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item" >
                             <Link to="/admin/articles" className="nav-link" href="#">Articles</Link>
-                        </li>                        
+                        </li>
+                        <li className="nav-item float-right" >
+                            <Link to="/" className="nav-link" href="#">Volver a la app</Link>
+                        </li>
                     </ul>
                 </div>
             </nav>

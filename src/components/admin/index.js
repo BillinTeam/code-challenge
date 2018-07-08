@@ -16,6 +16,7 @@ class Admin extends Component {
           <Route exact path='/admin' render={() => <Redirect to="/admin/articles" />} />
           <Route path='/admin/articles' component={ArticleList} />
           <Route path='/admin/new-article' component={ArticleForm} />
+          <Route path='/admin/article/:articleId' component={ArticleForm} />
         </Switch>
       </div>
     );

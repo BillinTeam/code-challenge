@@ -4,13 +4,14 @@ import Main from './components/Main';
 import { connectRouter, routerMiddleware } from 'connected-react-router'
 import { createBrowserHistory } from 'history';
 
-
 import { createStore, applyMiddleware, compose } from "redux";
-import createSagaMiddleware from "redux-saga";
 import { Provider } from "react-redux";
+import createSagaMiddleware from "redux-saga";
+
 
 import rootReducer from './reducers'
 import mySaga from './sagas'
+
 
 
 const history = createBrowserHistory();
@@ -18,21 +19,23 @@ const history = createBrowserHistory();
 const sagaMiddleware = createSagaMiddleware();
 // mount it on the Store
 const store = createStore(
+
   connectRouter(history)(rootReducer),
   compose(
+    //window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     applyMiddleware(
       routerMiddleware(history),
       sagaMiddleware
     )
   )
-)
+);
 
 // then run the saga
 sagaMiddleware.run(mySaga)
 
 ReactDOM.render(
   <Provider store={store}>
-      <Main history={history}/>
+    <Main history={history} />
   </Provider>,
   document.getElementById('root')
 );

@@ -7,7 +7,7 @@ class ArticleListItem extends Component {
         return "https://loremflickr.com/800/450/software?random=" + Math.floor(Math.random() * 1000);
     }
     get articleUrl() {
-        return "/admin/article/:" + this.props.article.id;
+        return "/admin/article/" + this.props.article.id;
     }
 
     delete (article){

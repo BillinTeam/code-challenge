@@ -16,7 +16,7 @@ class ArticleListItem extends Component {
                 <img className="img-fluid" alt={title} src={this.photoUrl} />
                 <div className="meta">
                     <div className="title"><b>{title}</b></div>
-                    <div className="excerpt">{excerpt.substr(0, 100) + "..."}</div>
+                    <div className="excerpt">{excerpt && excerpt.substr(0, 100) + "..."}</div>
                     <div className="text-right">
                         <Link className="btn btn-primary" to={this.articleUrl}>
                             Read more

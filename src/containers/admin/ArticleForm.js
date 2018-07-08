@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import { connect } from "react-redux";
-import { selectArticle } from './../../actions/index';
+import { selectArticle, postArticle } from './../../actions/index';
 
 import TagsInput from 'react-tagsinput'
 import 'react-tagsinput/react-tagsinput.css' // If using WebPack and style-loader.
@@ -13,27 +13,26 @@ import 'react-quill/dist/quill.snow.css';
 
 
 class ArticleForm extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            title: '',
-            content: '',
-            autoExcerpt: true,
-            excerpt: '',
-            tags: []
-        };
-
-        if(this.props.article)
-            this.state = {...this.state, ...this.props.article};
-    }
-
+    state = {
+        title: '',
+        content: '',
+        excerpt: '',
+        tags: []
+    };
+    
     componentDidMount() {
-        /*const { articleId } = this.props.match.params;
-        if(articleId)
-        this.props.selectArticle(articleId);*/
+        
+        const { articleId } = this.props.match.params;
+        if (articleId)
+            this.props.selectArticle(articleId);
     }
+
+    componentWillReceiveProps(newProps){
+        if(newProps.article)
+            this.setState(newProps.article);
+    }
+
+
 
     get actionTitle() {
         return "New Article";
@@ -41,31 +40,22 @@ class ArticleForm extends Component {
 
     setContent(value) {
         this.setState({ content: value })
-        if (this.state.autoExcerpt) {
-            this.setExcerpt(value.substr(0, 100));
-        }
+
     }
     setExcerpt(value) {
-        let cleanText = value.replace(/<\/?[^>]+(>|$)/g, "");
 
-        this.setState({ excerpt: cleanText })
+        this.setState({ excerpt: value })
     }
+    setTags(value) { this.setState({ tags: value }) }
+    setTitle(evt) { this.setState({ title: evt.target.value }) }
 
-    setAutoExcerpt(evt) {
-        this.setState({ autoExcerpt: evt.target.checked })
-    }
-
-    setTags(value) {
-
-        this.setState({ tags: value })
-    }
-    setTitle(evt) {
-
-        this.setState({ title: evt.target.value })
+    save(){
+        this.props.postArticle(this.state);
     }
 
     render() {
-
+        if(!this.props.article ||this.props.server.fetching)
+            return null;
 
         return (
             <div className="card">
@@ -84,10 +74,7 @@ class ArticleForm extends Component {
                     {/* Excerpt */}
                     <div className="form-group">
                         <h6 className="card-title">Excerpt</h6>
-                        <label className=" form-check">
-                            <input checked={this.state.autoExcerpt} type="checkbox" className="form-check-input" onChange={this.setAutoExcerpt.bind(this)} />
-                            <span className="form-check-label">Extract from content</span>
-                        </label>
+
                         <textarea className="form-control" height="150" value={this.state.excerpt} onChange={this.setExcerpt.bind(this)} />
                     </div>
                     {/* Content */}
@@ -95,15 +82,12 @@ class ArticleForm extends Component {
                         <h6 className="card-title">Content</h6>
                         <ReactQuill height="500" value={this.state.content} onChange={this.setContent.bind(this)} />
                     </div>
-
-
-
-
                 </div>
                 <div className="card-footer text-right">
-                    <button className="btn btn-primary">Save</button>
+                    <button onClick={this.save.bind(this)} className="btn btn-primary">Save</button>
                 </div>
             </div>
+
         );
     }
 }
@@ -117,7 +101,8 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    selectArticle: () => dispatch(selectArticle(ownProps.match.params.articleId))
+    selectArticle: () => dispatch(selectArticle(ownProps.match.params.articleId)),
+    postArticle: (article) => dispatch(postArticle(article))
 })
 
 
