@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import { connect } from "react-redux";
-import { selectArticle } from './../actions/index';
+import { selectArticle } from './../../actions/index';
 
 class Article extends Component {
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import ArticleListItem from '../containers/ArticleListItem';
+import ArticleListItem from './ArticleListItem';
 import { withRouter } from 'react-router-dom'
 import { connect } from "react-redux";
-import { fetchArticles } from '../actions/article.actions';
+import { fetchArticles } from '../../actions/article.actions';
 
 class ArticleList extends Component {
 

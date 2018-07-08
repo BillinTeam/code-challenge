@@ -13,7 +13,7 @@ class Main extends Component {
                 <div>
                     <ServerMsg />
                     <Switch>
-                        <Route exact path='/admin' component={Admin} />
+                        <Route path='/admin' component={Admin} />
                         <Route path='/' component={App} />
                     </Switch>
                 </div>
