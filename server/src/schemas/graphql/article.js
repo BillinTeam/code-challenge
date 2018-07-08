@@ -5,8 +5,8 @@ import {
   GraphQLList,
   GraphQLSchema,
 } from 'graphql';
-import db from './db';
-import { Types } from 'mongoose';
+import Article from '../db/article';
+
 const articleType = new GraphQLObjectType({
   name: 'Article',
   description: 'This represents a Article',
@@ -48,18 +48,18 @@ const Query = new GraphQLObjectType({
       },
       resolve(_, { id }) {
 
-        if (typeof id != "undefined"){
-          return db.Article.find({ _id: id });
+        if (typeof id != "undefined") {
+          return Article.find({ _id: id });
         }
 
-        return db.Article.find();
+        return Article.find();
       },
     },
   }),
 });
 
-const Schema = new GraphQLSchema({
+const ArticleSchema = new GraphQLSchema({
   query: Query,
 });
 
-export default Schema;
+export default ArticleSchema;
