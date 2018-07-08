@@ -3,6 +3,7 @@ import Header from './Header';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import ArticleList from '../../containers/admin/ArticleList';
+import ArticleForm from '../../containers/admin/ArticleForm';
 
 class Admin extends Component {
 
@@ -14,6 +15,7 @@ class Admin extends Component {
         <Switch>
           <Route exact path='/admin' render={() => <Redirect to="/admin/articles" />} />
           <Route path='/admin/articles' component={ArticleList} />
+          <Route path='/admin/new-article' component={ArticleForm} />
         </Switch>
       </div>
     );
