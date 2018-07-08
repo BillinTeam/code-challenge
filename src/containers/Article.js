@@ -6,8 +6,9 @@ import { selectArticle } from './../actions/index';
 class Article extends Component {
 
     componentDidMount() {
-        const { id } = this.props.match.params;
-        this.props.selectArticle(id);
+        const { articleId } = this.props.match.params;
+
+        this.props.selectArticle(articleId);
     }
     render() {
 

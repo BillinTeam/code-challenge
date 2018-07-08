@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import ArticleList from '../containers/ArticleList';
-import Article from '../containers/Article';
+import { ConnectedRouter } from 'connected-react-router';
+import ServerMsg from '../containers/ServerMsg';
+import Admin from './admin';
+import App from './app';
 
 class Main extends Component {
 
     render() {
-        return <div>
-            <Switch>
-                <Route exact path='/' component={ArticleList} />
-                <Route path='/:articleId' component={Article} />
-            </Switch>
-        </div>;
+        return (
+            <ConnectedRouter history={this.props.history}>
+                <div>
+                    <ServerMsg />
+                    <Switch>
+                        <Route exact path='/admin' component={Admin} />
+                        <Route path='/' component={App} />
+                    </Switch>
+                </div>
+            </ConnectedRouter>
+        );
     }
 }
 

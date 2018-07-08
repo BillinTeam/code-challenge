@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App';
+import Main from './components/Main';
 import { connectRouter, routerMiddleware } from 'connected-react-router'
 import { createBrowserHistory } from 'history';
 
@@ -32,7 +32,7 @@ sagaMiddleware.run(mySaga)
 
 ReactDOM.render(
   <Provider store={store}>
-      <App history={history}/>
+      <Main history={history}/>
   </Provider>,
   document.getElementById('root')
 );

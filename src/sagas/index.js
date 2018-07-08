@@ -24,8 +24,7 @@ function* fetchArticle(action) {
     yield put({ type: ARTICLE_ACTIONS.API_GET_ARTICLE_SUCCESS, article: res.data.articles[0] });
 
   } catch (e) {
-
-    yield put({ type: ARTICLE_ACTIONS.API_GET_ARTICLE_FAILURE, article: null, error: true });
+    yield put({ type: ARTICLE_ACTIONS.API_GET_ARTICLE_FAILURE, article: null, error: true, message: e.message });
 
   }
 }

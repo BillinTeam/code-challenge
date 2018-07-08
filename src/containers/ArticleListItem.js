@@ -7,7 +7,7 @@ class ArticleListItem extends Component {
         return "https://loremflickr.com/800/450/software?random="+Math.floor(Math.random()*1000);
     }
     get articleUrl(){
-        return "/"+this.props.article.id;
+        return "/read/"+this.props.article.id;
     }
     render() {
         const {title, excerpt } = this.props.article;
