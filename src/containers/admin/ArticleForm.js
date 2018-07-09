@@ -29,24 +29,13 @@ class ArticleForm extends Component {
         const { articleId } = this.props.match.params;
         this.creating = typeof articleId === "undefined";
 
-        /* Only fetch when url id param and the same article is not in the state.
-         * Useful to not do an extra fetch when we update url after creating and the article is already on the state
-         */
         if (articleId) {
-            if (this.props.article) {
-                if (this.props.article.id === articleId)
-                    this.setState({ article: this.props.article })
-                else {
-                    /* Redirect when props are diferent from  url */
-                    this.props.history.push('/admin/article/' + articleId);
-                }
-            }
-            else this.props.selectArticle(articleId);
+            this.props.selectArticle(articleId);
         }
-
-        if (!articleId) {
+        else {
             this.setDocTitle('new article');
         }
+
 
     }
 
