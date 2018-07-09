@@ -3,12 +3,12 @@ import ApiService from './../services/api.service';
 import { ARTICLE_ACTIONS } from './../actions';
 
 function* fetchArticles(action) {
+  
   try {
     const res = yield call(ApiService.getArticles);
     yield put({ type: ARTICLE_ACTIONS.API_GET_ARTICLES_SUCCESS, articles: res.articles });
   } catch (e) {
     yield put({ type: ARTICLE_ACTIONS.API_GET_ARTICLES_SUCCESS_FAILURE, error: e.message });
-
   }
 }
 
@@ -22,14 +22,32 @@ function* fetchArticle(action) {
   }
 }
 
-function* postArticle(action) {
-
+function* createArticle(action) {
   try {
-    const res = yield call(ApiService.postArticle, action.article);
-    yield put({ type: ARTICLE_ACTIONS.API_POST_ARTICLE_SUCCESS, article: res.data.articles[0] });
-
+    const res = yield call(ApiService.createArticle, action.article);
+    yield put({ type: ARTICLE_ACTIONS.API_CREATE_ARTICLE_SUCCESS, article: res.article });
   } catch (e) {
-    yield put({ type: ARTICLE_ACTIONS.API_POST_ARTICLE_FAILURE, article: null, error: true, message: e.message });
+    yield put({ type: ARTICLE_ACTIONS.API_CREATE_ARTICLE_FAILURE, article: null, error: true, message: e.message });
+
+  }
+}
+
+function* updateArticle(action) {
+  try {
+    const res = yield call(ApiService.updateArticle, action.article);
+    yield put({ type: ARTICLE_ACTIONS.API_UPDATE_ARTICLE_SUCCESS, article: res.articles });
+  } catch (e) {
+    yield put({ type: ARTICLE_ACTIONS.API_UPDATE_ARTICLE_FAILURE, article: null, error: true, message: e.message });
+
+  }
+}
+
+function* deleteArticles(action) {
+  try {
+    const res = yield call(ApiService.deleteArticles, action.articleIds);
+    yield put({ type: ARTICLE_ACTIONS.API_DELETE_ARTICLES_SUCCESS, articles: res.articles });
+  } catch (e) {
+    yield put({ type: ARTICLE_ACTIONS.API_DELETE_ARTICLES_FAILURE, error: true, message: e.message });
 
   }
 }
@@ -38,7 +56,9 @@ function* postArticle(action) {
 function* mySaga() {
   yield takeEvery(ARTICLE_ACTIONS.API_GET_ARTICLES_REQUEST, fetchArticles);
   yield takeEvery(ARTICLE_ACTIONS.API_GET_ARTICLE_REQUEST, fetchArticle);
-  yield takeEvery(ARTICLE_ACTIONS.API_POST_ARTICLE_REQUEST, postArticle);
+  yield takeEvery(ARTICLE_ACTIONS.API_CREATE_ARTICLE_REQUEST, createArticle);
+  yield takeEvery(ARTICLE_ACTIONS.API_UPDATE_ARTICLE_REQUEST, updateArticle);
+  yield takeEvery(ARTICLE_ACTIONS.API_DELETE_ARTICLES_REQUEST, deleteArticles);
 }
 
 

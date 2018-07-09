@@ -1,30 +1,27 @@
-export const ARTICLES_QUERY = `{
-  articles {
-    author
-    excerpt
-    id
-    title
+
+const ARTICLE_FIELDS_ALL = 'id, title, author, content, excerpt, tags, published';
+
+export const ARTICLES_QUERY = `{ articles { author, excerpt, id, title} }`;
+
+export const ARTICLE_CREATE = `($input: ArticleInput!){
+  article: createArticle(input : $input) {
+    ${ARTICLE_FIELDS_ALL}
+  }
+}`;
+export const ARTICLE_UPDATE = `($input: ArticleInput!){
+  article: updateArticle(input : $input) {
+    ${ARTICLE_FIELDS_ALL}
   }
 }`;
 
-export const ARTICLE_INSERT = (a) => (`mutation {
-  createArticle(input: {
-   title:"${a.title}",
-   content: "${a.content}",
-   author: "${a.author}",
-   excerpt:"${a.excerpt}",
-   tags:"${JSON.stringify(a.tags)}",
-  }) {
-   content
- }
-}`);
+export const ARTICLE_DELETE = `($input: ArticleIdsInput!){
+  articles: deleteArticles(input : $input) {
+    ${ARTICLE_FIELDS_ALL}
+  }
+}`;
 
 export const ARTICLE_QUERY = `query Article($articleId: String) {
-  article(id:$articleId){
-    author
-    excerpt
-    id
-    title
-    content
-  }
-}`;
+    article(id:$articleId){
+      ${ARTICLE_FIELDS_ALL}
+    }
+  }`;

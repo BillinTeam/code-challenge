@@ -1,6 +1,6 @@
 import Lokka from 'lokka';
 import Transport from 'lokka-transport-http';
-import { ARTICLES_QUERY, ARTICLE_INSERT, ARTICLE_QUERY } from './queries';
+import { ARTICLES_QUERY, ARTICLE_CREATE, ARTICLE_UPDATE, ARTICLE_DELETE, ARTICLE_QUERY } from './queries';
 
 const client = new Lokka({
   transport: new Transport('http://localhost:4000/graphql')
@@ -14,8 +14,14 @@ class ApiService {
   static getArticle(articleId) {
     return doQuery(ARTICLE_QUERY, { articleId })
   }
-  static postArticle(article) {
-    return doMutation(ARTICLE_INSERT, article)
+  static createArticle(article) {
+    return doMutation(ARTICLE_CREATE, {input: article})
+  }
+  static deleteArticles(articleIds) {
+    return doMutation(ARTICLE_DELETE, {input: { articleIds: articleIds}})
+  }
+  static updateArticle(article) {
+    return doMutation(ARTICLE_UPDATE, {input: article})
   }
 }
 
