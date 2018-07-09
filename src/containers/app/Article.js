@@ -20,7 +20,7 @@ class Article extends Component {
         return (
             <div className="article">
                 <h1>{title}</h1>
-                {content}
+                <div dangerouslySetInnerHTML={{__html: content}} ></div>
             </div>
         );
     }
