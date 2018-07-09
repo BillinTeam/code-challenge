@@ -8,7 +8,7 @@
     "graphql-builder": "^0.2.0",
     "graphql-helper": "^0.2.1",
     "graphql-tag": "^2.9.2",
-    "lokka": "^1.7.0",
+    "lokka": "git://github.com/jsertx/lokka",
     "lokka-transport-http": "^1.6.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
