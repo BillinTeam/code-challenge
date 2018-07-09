@@ -8,6 +8,7 @@ export default function (state = null, action) {
       return state;
 
     case ARTICLE_ACTIONS.API_GET_ARTICLES_SUCCESS:
+    case ARTICLE_ACTIONS.API_DELETE_ARTICLES_SUCCESS:
       return action.articles;
 
     case ARTICLE_ACTIONS.API_GET_ARTICLES_FAILURE:
