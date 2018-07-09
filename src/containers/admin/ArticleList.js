@@ -2,18 +2,43 @@ import React, { Component } from 'react';
 import ArticleListItem from './ArticleListItem';
 import { withRouter, Link } from 'react-router-dom'
 import { connect } from "react-redux";
-import { fetchArticles } from '../../actions/article.actions';
+import { fetchArticles, deleteArticles } from '../../actions/article.actions';
 
 class ArticleList extends Component {
+
+    state = { selectedArticles: [] };
 
     componentDidMount() {
         this.props.fetchArticles();
     }
+    onSelectChange(article, check) {
 
+        let selected = this.state.selectedArticles;
+        if (check) {
+            selected.push(article.id);
+
+        }
+        else {
+            selected = selected.filter((a) => {
+                return a.id !== article.id
+            });
+        }
+        this.setState({ selectedArticles: selected })
+    }
     renderList() {
         return this.props.articles.map((article) => {
-            return <ArticleListItem key={article.id} article={article} />
+            return <ArticleListItem onSelectChange={this.onSelectChange.bind(this)} key={article.id} article={article} />
         })
+    }
+    deleteSelected() {
+        let nArticles = this.state.selectedArticles.length;
+        if (confirm(`Are you sure of deleting these ${nArticles}?`)) {
+            this.props.deleteArticles(this.state.selectedArticles);
+            this.setState({
+                selectedArticles: []
+            });
+        }
+
     }
     render() {
 
@@ -22,16 +47,21 @@ class ArticleList extends Component {
 
         return (
             <div className="article-list">
+
                 <table className="table table-hover table-striped">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Title</th>
-                            <th>Author</th>
-                            <th className="text-right">
-                                <Link className="btn btn-primary btn-sm" to="/admin/new-article">
-                                    New
-                                </Link>
+                            <th width="200" colSpan="2">Author
+                                <div className="float-right">{
+                                    this.state.selectedArticles.length > 0
+                                    && <button onClick={this.deleteSelected.bind(this)} className="btn btn-danger btn-sm">Delete selected</button>
+                                }
+                                    &nbsp;<Link className="btn btn-primary btn-sm" to="/admin/new-article">Write new article</Link>
+                                </div>
                             </th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -48,11 +78,13 @@ const mapStateToProps = state => {
         articles: state.articles,
         server: state.server
     };
+    
 };
 
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    fetchArticles: () => dispatch(fetchArticles())
+    fetchArticles: () => dispatch(fetchArticles()),
+    deleteArticles: (articleIds) => dispatch(deleteArticles(articleIds))
 })
 
 
