@@ -77,7 +77,7 @@ const Mutation = new GraphQLObjectType({
         let newArticle = new Article(input);
         return new Promise((resolve, reject) => {
           /* Return itself with the id */
-          newArticle.newArticle.save((err, res) => {
+          newArticle.save((err, res) => {
             err ? reject(err) : resolve(res);
           });
         });
