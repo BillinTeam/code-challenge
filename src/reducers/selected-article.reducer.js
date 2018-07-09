@@ -7,9 +7,9 @@ export default function (state = null, action) {
       return state;
 
     case ARTICLE_ACTIONS.API_GET_ARTICLE_SUCCESS:
-      console.log('fetched', action.article.title);
+    case ARTICLE_ACTIONS.API_CREATE_ARTICLE_SUCCESS:
       return action.article;
-      
+
     case ARTICLE_ACTIONS.API_GET_ARTICLE_FAILURE:
       return null;
 
