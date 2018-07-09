@@ -10,6 +10,7 @@ import {
 import Article from '../db/article';
 
 const articleFields = {
+  id: { type: GraphQLString },
   author: { type: GraphQLString },
   content: { type: GraphQLString },
   excerpt: { type: GraphQLString },
@@ -19,30 +20,41 @@ const articleFields = {
   title: { type: GraphQLString },
 }
 
-const articleType = new GraphQLObjectType({
+const ArticleType = new GraphQLObjectType({
   name: 'Article',
   description: 'This represents a Article',
-  fields: () => ({ ...articleFields, id: { type: GraphQLString }, }),
+  fields: () => articleFields,
+});
+
+const ArticleIdsType = new GraphQLInputObjectType({
+  name: 'ArticleIdsInput',
+  description: 'This represents a list of IDs',
+  fields: {
+    articleIds: { type: new GraphQLList(GraphQLString) }
+  },
 });
 
 
-const articleInputType = new GraphQLInputObjectType({
-  name: 'ArticleInputType',
+
+
+const ArticleInputType = new GraphQLInputObjectType({
+  name: 'ArticleInput',
   description: 'User payload definition',
-  fields: () => (articleFields),
+  type: ArticleType,
+  fields: () => articleFields,
 });
 
 
 const Query = new GraphQLObjectType({
-  name: 'Query',
+  name: 'ArticleQuery',
   description: 'This is a root query',
   fields: () => ({
     articles: {
-      type: new GraphQLList(articleType),
+      type: new GraphQLList(ArticleType),
       resolve() { return Article.find(); },
     },
     article: {
-      type: articleType,
+      type: ArticleType,
       args: {
         id: { type: GraphQLString }
       },
@@ -54,21 +66,63 @@ const Query = new GraphQLObjectType({
 
 
 const Mutation = new GraphQLObjectType({
-  name: 'Mutation',
+  name: 'ArticleMutation',
   fields: () => ({
     createArticle: {
-      type: articleType,
+      type: ArticleType,
       args: {
-        input: {
-          type: new GraphQLNonNull(articleInputType),
-        },
+        input: { type: new GraphQLNonNull(ArticleInputType), },
       },
       resolve: async (rootValue, { input }) => {
-        console.log(input);
         let newArticle = new Article(input);
-        return newArticle.save();
+        return new Promise((resolve, reject) => {
+          /* Return itself with the id */
+          newArticle.newArticle.save((err, res) => {
+            err ? reject(err) : resolve(res);
+          });
+        });
+
       },
     },
+    updateArticle: {
+      type: ArticleType,
+      args: {
+        input: { type: new GraphQLNonNull(ArticleInputType), },
+      },
+      resolve: async (rootValue, { input }) => {
+        return new Promise((resolve, reject) => {
+          /* Return the whole list */
+          Article.where({ _id: input.id }).update(input, (err, res) => {
+            if (err)
+              return reject(err);
+            Article.find((err, res) => {
+              err ? reject(err) : resolve(res);
+            })
+          });
+        });
+      },
+    },
+    deleteArticles: {
+      type: new GraphQLList(ArticleType),
+      args: {
+        input: { type: new GraphQLNonNull(ArticleIdsType), },
+      },
+      resolve: async (rootValue, { input }) => {
+        return new Promise((resolve, reject) => {
+          //Article.deleteOne({ _id: input.id }, (err) => {
+          Article.where({ _id: { $in: input.articleIds } }).remove((err) => {
+            if (err)
+              return reject(err)
+            /* Returning back articles without deleted one */
+            Article.find((err, res) => {
+              err ? reject(err) : resolve(res);
+            })
+          });
+        });
+      },
+    },
+
+
   })
 })
 const ArticleSchema = new GraphQLSchema({
