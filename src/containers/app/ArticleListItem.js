@@ -10,12 +10,13 @@ class ArticleListItem extends Component {
         return "/read/"+this.props.article.id;
     }
     render() {
-        const {title, excerpt } = this.props.article;
+        const {title, excerpt, author } = this.props.article;
         return (<div className="col-sm-6 col-md-4">
             <div className="article">
                 <img className="img-fluid" alt={title} src={this.photoUrl} />
                 <div className="meta">
-                    <div className="title"><b>{title}</b></div>
+                    <h2 className="title"><b>{title}</b></h2>
+                    <p className="author">Written by {author}</p>
                     <div className="excerpt">{excerpt && excerpt.substr(0, 100) + "..."}</div>
                     <div className="text-right">
                         <Link className="btn btn-primary" to={this.articleUrl}>
