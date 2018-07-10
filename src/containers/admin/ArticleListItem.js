@@ -5,10 +5,6 @@ import { deleteArticles } from '../../actions/article.actions';
 
 class ArticleListItem extends Component {
 
-    constructor(props) {
-        super(props);
-        
-    }
     get photoUrl() {
         return "https://loremflickr.com/800/450/software?random=" + Math.floor(Math.random() * 1000);
     }

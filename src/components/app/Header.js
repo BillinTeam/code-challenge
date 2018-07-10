@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import UserPanel from '../../containers/UserPanel';
 class Header extends Component {
     render() {
         return (
@@ -11,11 +12,10 @@ class Header extends Component {
                         <li className="nav-item" >
                             <Link to="/" className="nav-link" href="#">Articles</Link>
                         </li>
-                        <li  className="nav-item" >
-                            <Link to="/admin" className="nav-link" href="#">Admin</Link>
-                        </li>
-                        
                     </ul>
+                    
+                        <UserPanel/>
+
                 </div>
             </nav>
         );
