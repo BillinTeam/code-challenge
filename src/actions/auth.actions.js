@@ -1,0 +1,9 @@
+export const AUTH_ACTIONS = {
+  API_AUTH_REQUEST: 'API_AUTH_REQUEST',
+  API_AUTH_SUCCESS: 'API_AUTH_SUCCESS',
+  API_AUTH_FAILURE: 'API_AUTH_FAILURE'
+}
+export const doLogin = loginData => ({
+  type: AUTH_ACTIONS.API_AUTH_REQUEST,
+  loginData
+})
