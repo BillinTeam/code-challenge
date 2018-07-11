@@ -62,7 +62,8 @@ class UserPanel extends Component {
                     <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown.bind(this)}>
                         <DropdownToggle color="light"  caret>Welcome {this.props.auth.alias}</DropdownToggle>
                         <DropdownMenu>
-                            <DropdownItem onClick={this.goAdmin.bind(this)}>Administration</DropdownItem>
+                        { !this.props.admin && <DropdownItem onClick={()=>this.props.history.push('/admin')}>Administration</DropdownItem>}
+                        { this.props.admin && <DropdownItem onClick={()=>this.props.history.push('/')}>Go back to app</DropdownItem>}
                             <DropdownItem onClick={this.logout.bind(this)}>Logout</DropdownItem>
                         </DropdownMenu>
                     </ButtonDropdown>

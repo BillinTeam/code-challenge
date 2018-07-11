@@ -14,7 +14,7 @@ class Header extends Component {
                             </li>
                         </ul>
 
-                        <UserPanel />
+                        <UserPanel admin={false} />
 
                     </div>
                 </div>

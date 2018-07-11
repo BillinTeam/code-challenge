@@ -12,11 +12,8 @@ class Header extends Component {
                             <li className="nav-item" >
                                 <Link to="/admin/articles" className="nav-link" href="#">Articles</Link>
                             </li>
-                            <li className="nav-item float-right" >
-                                <Link to="/" className="nav-link" href="#">Volver a la app</Link>
-                            </li>
                         </ul>
-                        <UserPanel />
+                        <UserPanel admin={true} />
                     </div>
                 </div>
             </nav>
