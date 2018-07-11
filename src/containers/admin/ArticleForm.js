@@ -15,17 +15,24 @@ import 'react-quill/dist/quill.snow.css';
 class ArticleForm extends Component {
     creating = false;
     state = {
-        article: {
-            title: '',
-            content: '',
-            excerpt: '',
-            tags: []
-        }
+
+        title: '',
+        content: '',
+        excerpt: '',
+        tags: [],
+        author: '',
+        published: false
+
     };
 
     componentDidMount() {
 
+        if (this.props.auth) {
 
+            this.setState({
+                author: this.props.auth.alias
+            })
+        }
         const { articleId } = this.props.match.params;
         this.creating = typeof articleId === "undefined";
 
@@ -37,9 +44,13 @@ class ArticleForm extends Component {
         }
 
 
+
+
+
     }
 
     componentWillReceiveProps(newProps) {
+
         if (newProps.article) {
             /* Update url when new article is created, just for UX */
             if (this.creating) {
@@ -47,42 +58,40 @@ class ArticleForm extends Component {
                 this.props.history.push('/admin/article/' + newProps.article.id);
             }
             else {
-                this.setState({ article: newProps.article });
+                this.setState(newProps.article);
                 this.setDocTitle(newProps.article.title);
             }
         }
     }
     get actionTitle() {
-        return this.state.article.id ? "Edit article" : "New Article";
+        return this.state.id ? "Edit article" : "New Article";
     }
-    setContent(value) {
-        this.setState({ article: { ...this.state.article, content: value } })
-    }
+    
     setField(evt) {
+
+        let field = evt.target.name;
         let value = evt.target.type === 'checkbox' ? evt.target.checked : evt.target.value;
-        this.setState({ article: { ...this.state.article, [evt.target.name]: value } })
-
+        this.setState({ [field]: value })
+        if (field === 'title') {
+            this.setDocTitle(value);
+        }
     }
-    setTitle(evt) {
-        let title = evt.target.value;
-        this.setState({ article: { ...this.state.article, title: title } })
 
-
-        this.setDocTitle(title)
-
-    }
     setDocTitle(title) {
         document.title = 'Writing @ ' + title;
     }
-    setTags(value) { this.setState({ article: { ...this.state.article, tags: value } }) }
+    /* Especial inputs setters */
+    setTags(value) { this.setState({ tags: value }) }
+    setContent(value) { this.setState({ content: value }) }
 
+    /* Saving actions */
     save(publish) {
         this.setState({ published: publish });
 
-        let article = this.state.article;
+        let article = this.state;
         article.published = publish;
 
-        if (this.state.article.id)
+        if (this.state.id)
             return this.props.updateArticle(article);
 
         return this.props.createArticle(article);
@@ -101,18 +110,20 @@ class ArticleForm extends Component {
 
         return (
             <div className="card">
-                <div className="card-header">{this.actionTitle}</div>
+                <div className="card-header">
+                    {this.actionTitle}
+                </div>
                 <div className="card-body">
 
                     {/* Title input */}
                     <div className="form-group">
                         <h6 className="card-title">Title</h6>
-                        <input className="form-control" name="title" value={this.state.article.title} onChange={this.setTitle.bind(this)} />
+                        <input className="form-control" name="title" value={this.state.title} onChange={this.setField.bind(this)} />
                     </div>
                     {/* Tags input */}
                     <div className="form-group">
                         <h6 className="card-title">Tags</h6>
-                        <TagsInput value={this.state.article.tags} name="tags" onChange={this.setTags.bind(this)} />
+                        <TagsInput value={this.state.tags} name="tags" onChange={this.setTags.bind(this)} />
                     </div>
 
 
@@ -120,19 +131,19 @@ class ArticleForm extends Component {
                     <div className="form-group">
                         <h6 className="card-title">Excerpt</h6>
 
-                        <textarea className="form-control" name="excerpt" height="150" value={this.state.article.excerpt} onChange={this.setField.bind(this)} />
+                        <textarea className="form-control" name="excerpt" height="150" value={this.state.excerpt} onChange={this.setField.bind(this)} />
                     </div>
                     {/* Content */}
                     <div className="form-group">
                         <h6 className="card-title">Content</h6>
-                        <ReactQuill height="500" value={this.state.article.content} onChange={this.setContent.bind(this)} />
+                        <ReactQuill height="500" value={this.state.content} onChange={this.setContent.bind(this)} />
                     </div>
                 </div>
                 <div className="card-footer text-right">
                     <button title="This wont show the article in the portal" onClick={this.saveAsdraft.bind(this)} className="btn btn-link">Save as draft</button>
                     or &nbsp;
-                    {!this.state.article.publish && !this.state.article.id && <button disabled={this.state.fetching} onClick={this.publish.bind(this)} className="btn btn-primary">Save & Publish</button>}
-                    {!this.state.article.publish && this.state.article.id && <button disabled={this.state.fetching} onClick={this.publish.bind(this)} className="btn btn-primary">Save</button>}
+                    { !this.state.published &&  <button disabled={this.state.fetching} onClick={this.publish.bind(this)} className="btn btn-primary">Save & Publish</button>}
+                    { this.state.published && <button disabled={this.state.fetching} onClick={this.publish.bind(this)} className="btn btn-primary">Save</button>}
                 </div>
             </div>
 
@@ -145,6 +156,7 @@ const mapStateToProps = state => {
     return {
         server: state.server,
         article: state.selectedArticle,
+        auth: state.auth
     };
 };
 
