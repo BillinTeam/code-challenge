@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLList, GraphQLNonNull } from 'graphql';
+import { GraphQLList, GraphQLNonNull } from 'graphql';
 import { createArticle, updateArticle, deleteArticles } from './article.resolvers';
 import { ArticleType, ArticleInputType, ArticleIdsInputType } from './article.types';
 
@@ -6,7 +6,9 @@ const articleMutators = {
     createArticle: {
         type: ArticleType,
         args: { input: { type: new GraphQLNonNull(ArticleInputType) } },
-        resolve: async (_, vars, ctx) => { return createArticle(vars, ctx) },
+        resolve: async (_, vars, ctx) => { 
+            return createArticle(vars, ctx)
+        },
     },
     updateArticle: {
         type: ArticleType,

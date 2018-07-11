@@ -9,7 +9,7 @@ export function articles(vars, ctx) {
 }
 
 export function article(vars, ctx) {
-    console.log('find', vars.id);
+
     return new Promise((resolve, reject) => {
         Article.findOne({ _id: vars.id }, (err, res) => {
             err ? reject(err) : resolve(res);
@@ -18,7 +18,7 @@ export function article(vars, ctx) {
 }
 
 export function createArticle(vars, ctx) {
-    let input = ctx.input;
+    let input = vars.input;
     let newArticle = new Article(input);
     return new Promise((resolve, reject) => {
         /* Return itself with the id */

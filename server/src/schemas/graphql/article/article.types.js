@@ -1,15 +1,15 @@
 import {
-    GraphQLBoolean, GraphQLObjectType, GraphQLString, GraphQLList, GraphQLInputObjectType
+    GraphQLBoolean, GraphQLObjectType, GraphQLString, GraphQLList, GraphQLInputObjectType,GraphQLNonNull
 } from 'graphql';
 
 export const articleFields = {
     id: { type: GraphQLString },
-    author: { type: GraphQLString },
-    content: { type: GraphQLString },
-    excerpt: { type: GraphQLString },
-    published: { type: GraphQLBoolean },
+    author: { type: new GraphQLNonNull(GraphQLString) },
+    content: { type: new GraphQLNonNull(GraphQLString) },
+    excerpt: { type: new GraphQLNonNull(GraphQLString) },
+    published: { type: new GraphQLNonNull(GraphQLBoolean) },
     tags: { type: new GraphQLList(GraphQLString) },
-    title: { type: GraphQLString },
+    title: { type: new GraphQLNonNull(GraphQLString) },
 }
 export const ArticleType = new GraphQLObjectType({
     name: 'Article',
