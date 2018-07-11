@@ -32,7 +32,7 @@ class ArticleList extends Component {
                 <tr>
                     <td colSpan="3">
                         <Alert color="info">
-                            <h4 class="alert-heading">Hey!</h4>
+                            <h4 className="alert-heading">Hey!</h4>
                             <p>There are no articles written yet... <Link className="alert-link" to="new-article/">Why dont you write one now?</Link></p>
                         </Alert>
                     </td>

@@ -23,7 +23,7 @@ class ArticleListItem extends Component {
         const { title, author } = this.props.article;
         return (<tr className="col-sm-6 col-md-4">
             <td width="50"><input type="checkbox" onChange={this.onSelectChange.bind(this)} /></td>
-            <td>{title}</td>
+            <td><Link className="btn btn-default btn-sm" to={this.articleUrl}>{title}</Link></td>
             <td>{author}</td>
             <td className="text-right">
                 <div className="btn-group">
