@@ -10,14 +10,16 @@ class Admin extends Component {
   render() {
 
     return (
-      <div className="container admin">
+      <div className="admin">
         <Header />
-        <Switch>
-          <Route exact path='/admin' render={() => <Redirect to="/admin/articles" />} />
-          <Route path='/admin/articles' component={ArticleList} />
-          <Route path='/admin/new-article' component={ArticleForm} />
-          <Route path='/admin/article/:articleId' component={ArticleForm} />
-        </Switch>
+        <div className="container">
+          <Switch>
+            <Route exact path='/admin' render={() => <Redirect to="/admin/articles" />} />
+            <Route path='/admin/articles' component={ArticleList} />
+            <Route path='/admin/new-article' component={ArticleForm} />
+            <Route path='/admin/article/:articleId' component={ArticleForm} />
+          </Switch>
+        </div>
       </div>
     );
   }

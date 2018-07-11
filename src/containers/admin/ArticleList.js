@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ArticleListItem from './ArticleListItem';
 import { withRouter, Link } from 'react-router-dom'
 import { connect } from "react-redux";
+import { Alert } from "reactstrap";
 import { fetchArticles, deleteArticles } from '../../actions/article.actions';
 
 class ArticleList extends Component {
@@ -26,6 +27,18 @@ class ArticleList extends Component {
         this.setState({ selectedArticles: selected })
     }
     renderList() {
+        if (this.props.articles.length == 0) {
+            return (
+                <tr>
+                    <td colSpan="3">
+                        <Alert color="info">
+                            <h4 class="alert-heading">Hey!</h4>
+                            <p>There are no articles written yet... <Link className="alert-link" to="new-article/">Why dont you write one now?</Link></p>
+                        </Alert>
+                    </td>
+                </tr>
+            );
+        }
         return this.props.articles.map((article) => {
             return <ArticleListItem onSelectChange={this.onSelectChange.bind(this)} key={article.id} article={article} />
         })
@@ -46,9 +59,12 @@ class ArticleList extends Component {
             return null;
 
         return (
-            <div className="article-list">
+            <div className="card article-list">
+                <div className="card-header">Article List</div>
 
-                <table className="table table-hover table-striped">
+
+
+                <table className="table table-hover table-striped mb-0">
                     <thead>
                         <tr>
                             <th></th>
@@ -68,6 +84,7 @@ class ArticleList extends Component {
                         {this.renderList()}
                     </tbody>
                 </table>
+
             </div>
         );
     }
@@ -78,7 +95,7 @@ const mapStateToProps = state => {
         articles: state.articles,
         server: state.server
     };
-    
+
 };
 
 

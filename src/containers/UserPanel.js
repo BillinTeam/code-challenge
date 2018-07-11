@@ -1,23 +1,30 @@
 import React, { Component } from 'react';
 
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from "react-redux";
-import { Button, Modal, ModalBody, ModalHeader, ModalFooter, Label, FormGroup, Input } from 'reactstrap';
-import { doLogin } from '../actions/auth.actions';
+import { Button, Modal, ModalBody, ModalHeader, ModalFooter, Label, FormGroup, Input, ButtonDropdown, DropdownItem, DropdownToggle, DropdownMenu } from 'reactstrap';
+import { doLogin, doLogout } from '../actions/auth.actions';
+
+
 class UserPanel extends Component {
 
     state = {
         modal: false,
-        data: {
+        dropdownOpen: false,
+        credentials: {
             email: '',
             password: ''
         }
     };
-
+    toggleDropdown() {
+        this.setState({
+            dropdownOpen: !this.state.dropdownOpen
+        });
+    }
     toggle() {
         this.setState({
             modal: !this.state.modal,
-            data: {
+            credentials: {
                 email: '',
                 password: ''
             }
@@ -26,8 +33,8 @@ class UserPanel extends Component {
 
     setField(evt) {
         this.setState({
-            data: {
-                ...this.state.data,
+            credentials: {
+                ...this.state.credentials,
                 [evt.target.name]: evt.target.value
             }
         });
@@ -35,41 +42,56 @@ class UserPanel extends Component {
 
     login(evt) {
         evt.preventDefault();
-        console.log(this.state.data);
+        this.props.login(this.state.credentials);
     }
-    componentDidMount() {
-
+    goAdmin(){
+        this.props.history.push('/admin');
+    }
+    logout(){
+        this.props.logout();
+    }
+    componentWillReceiveProps(newProps) {
+        if (newProps.auth) {
+            this.setState({ modal: false })
+        }
     }
     render() {
         return (
             <ul className="navbar-nav ml-auto">
-                {/*<li className="nav-item" >
-                    <Link to="/admin" className="nav-link" href="#">Admin</Link>
-        </li> */}
-                <li className="nav-item" >
-                    <Button color="light" onClick={this.toggle.bind(this)}>Login</Button>
-                </li>
-
-                <Modal isOpen={this.state.modal} toggle={this.toggle.bind(this)}>
-                    <form onSubmit={this.login.bind(this)}>
-                        <ModalHeader toggle={this.toggle}>Login</ModalHeader>
-                        <ModalBody>
-                            <FormGroup>
-                                <Label for="exampleEmail">Email</Label>
-                                <Input required value={this.state.email} onChange={this.setField.bind(this)} type="email" name="email" />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="examplePassword">Password</Label>
-                                <Input required value={this.state.password} onChange={this.setField.bind(this)} type="password" name="password" />
-                            </FormGroup>
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button color="secondary" onClick={this.toggle.bind(this)}>Cancel</Button>
-                            <Button color="primary" type="submit">Login</Button>{' '}
-                        </ModalFooter>
-                    </form>
-                </Modal>
-
+                {this.props.auth && (
+                    <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown.bind(this)}>
+                        <DropdownToggle color="light"  caret>Welcome {this.props.auth.alias}</DropdownToggle>
+                        <DropdownMenu>
+                            <DropdownItem onClick={this.goAdmin.bind(this)}>Administration</DropdownItem>
+                            <DropdownItem onClick={this.logout.bind(this)}>Logout</DropdownItem>
+                        </DropdownMenu>
+                    </ButtonDropdown>
+                )}
+                {!this.props.auth &&
+                    <li className="nav-item" >
+                        <Button color="light" onClick={this.toggle.bind(this)}>Login</Button>
+                    </li>}
+                {!this.props.auth &&
+                    <Modal isOpen={this.state.modal} toggle={this.toggle.bind(this)}>
+                        <form onSubmit={this.login.bind(this)}>
+                            <ModalHeader toggle={this.toggle}>Login</ModalHeader>
+                            <ModalBody>
+                                <FormGroup>
+                                    <Label for="exampleEmail">Email</Label>
+                                    <Input required value={this.state.email} onChange={this.setField.bind(this)} type="email" name="email" />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label for="examplePassword">Password</Label>
+                                    <Input required value={this.state.password} onChange={this.setField.bind(this)} type="password" name="password" />
+                                </FormGroup>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="secondary" onClick={this.toggle.bind(this)}>Cancel</Button>
+                                <Button color="primary" type="submit">Login</Button>{' '}
+                            </ModalFooter>
+                        </form>
+                    </Modal>
+                }
             </ul>
         );
     }
@@ -78,12 +100,14 @@ class UserPanel extends Component {
 
 const mapStateToProps = state => {
     return {
-        server: state.server
+        server: state.server,
+        auth: state.auth
     };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    login: (loginData) => dispatch(doLogin(loginData)),
+    login: (credentials) => dispatch(doLogin(credentials)),
+    logout: () => dispatch(doLogout()),
 
 })
 

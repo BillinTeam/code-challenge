@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import UserPanel from '../../containers/UserPanel';
 class Header extends Component {
     render() {
         return (
             <nav className="topbar navbar navbar-expand-lg navbar-dark bg-dark">
-
-                <a className="navbar-brand" href="#">ADMIN</a>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item" >
-                            <Link to="/admin/articles" className="nav-link" href="#">Articles</Link>
-                        </li>
-                        <li className="nav-item float-right" >
-                            <Link to="/" className="nav-link" href="#">Volver a la app</Link>
-                        </li>
-                    </ul>
+                <div className="container">
+                    <a className="navbar-brand" href="#">ADMIN</a>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item" >
+                                <Link to="/admin/articles" className="nav-link" href="#">Articles</Link>
+                            </li>
+                            <li className="nav-item float-right" >
+                                <Link to="/" className="nav-link" href="#">Volver a la app</Link>
+                            </li>
+                        </ul>
+                        <UserPanel />
+                    </div>
                 </div>
             </nav>
         );

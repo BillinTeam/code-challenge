@@ -1,23 +1,23 @@
 import { ARTICLES_QUERY, ARTICLE_CREATE, ARTICLE_UPDATE, ARTICLE_DELETE, ARTICLE_QUERY } from './article.queries';
-import { doMutation, doQuery } from '../utils';
+import { graphqlRequest } from '../utils';
 
 
 class ArticleService {
 
   getArticles() {
-    return doQuery(ARTICLES_QUERY);
+    return graphqlRequest(ARTICLES_QUERY);
   }
   getArticle(articleId) {
-    return doQuery(ARTICLE_QUERY, { articleId })
+    return graphqlRequest(ARTICLE_QUERY, { articleId })
   }
   createArticle(article) {
-    return doMutation(ARTICLE_CREATE, {input: article})
+    return graphqlRequest(ARTICLE_CREATE, { input: article })
   }
   deleteArticles(articleIds) {
-    return doMutation(ARTICLE_DELETE, {input: { articleIds: articleIds}})
+    return graphqlRequest(ARTICLE_DELETE, { input: { articleIds: articleIds } })
   }
   updateArticle(article) {
-    return doMutation(ARTICLE_UPDATE, {input: article})
+    return graphqlRequest(ARTICLE_UPDATE, { input: article })
   }
 }
 

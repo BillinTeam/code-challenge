@@ -1,9 +1,17 @@
 export const AUTH_ACTIONS = {
   API_AUTH_REQUEST: 'API_AUTH_REQUEST',
   API_AUTH_SUCCESS: 'API_AUTH_SUCCESS',
-  API_AUTH_FAILURE: 'API_AUTH_FAILURE'
+  API_AUTH_FAILURE: 'API_AUTH_FAILURE',
+
+  API_LOGOUT_REQUEST: 'API_LOGOUT_REQUEST',
+  API_LOGOUT_SUCCESS: 'API_LOGOUT_SUCCESS',
+  API_LOGOUT_FAILURE: 'API_LOGOUT_FAILURE'
 }
-export const doLogin = loginData => ({
+export const doLogin = credentials => ({
   type: AUTH_ACTIONS.API_AUTH_REQUEST,
-  loginData
+  credentials
+})
+
+export const doLogout = credentials => ({
+  type: AUTH_ACTIONS.API_LOGOUT_REQUEST
 })

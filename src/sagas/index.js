@@ -1,13 +1,11 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
-import { articleService } from '../services';
-import { ARTICLE_ACTIONS } from '../actions';
+import { articleService, authService } from '../services';
+import { ARTICLE_ACTIONS, AUTH_ACTIONS } from '../actions';
 
 function* fetchArticles(action) {
-console.log(action);
-    const res = yield call(articleService.getArticles);
+
   try {
-    
-    
+    const res = yield call(articleService.getArticles);
     yield put({ type: ARTICLE_ACTIONS.API_GET_ARTICLES_SUCCESS, articles: res.articles });
   } catch (e) {
     yield put({ type: ARTICLE_ACTIONS.API_GET_ARTICLES_SUCCESS_FAILURE, error: e.message });
@@ -54,13 +52,38 @@ function* deleteArticles(action) {
   }
 }
 
+function* doLogin(action) {
+  try {
+    const res = yield call(authService.login, action.credentials);
+    yield put({ type: AUTH_ACTIONS.API_AUTH_SUCCESS, me: res.me });
+  } catch (e) {
+    yield put({ type: AUTH_ACTIONS.API_AUTH_FAILURE, error: true, message: e.message });
+
+  }
+}
+
+function* doLogout(action) {
+  try {
+    yield call(authService.logout, action.credentials);
+    yield put({ type: AUTH_ACTIONS.API_LOGOUT_SUCCESS });
+  } catch (e) {
+    yield put({ type: AUTH_ACTIONS.API_LOGOUT_FAILURE, error: true, message: e.message });
+
+  }
+}
+
 /* Saga inspect each dispatch(...) looking for the desired actions */
 function* mySaga() {
+  /* Articles */
   yield takeEvery(ARTICLE_ACTIONS.API_GET_ARTICLES_REQUEST, fetchArticles);
   yield takeEvery(ARTICLE_ACTIONS.API_GET_ARTICLE_REQUEST, fetchArticle);
   yield takeEvery(ARTICLE_ACTIONS.API_CREATE_ARTICLE_REQUEST, createArticle);
   yield takeEvery(ARTICLE_ACTIONS.API_UPDATE_ARTICLE_REQUEST, updateArticle);
   yield takeEvery(ARTICLE_ACTIONS.API_DELETE_ARTICLES_REQUEST, deleteArticles);
+
+  /* Auth */
+  yield takeEvery(AUTH_ACTIONS.API_AUTH_REQUEST, doLogin);
+  yield takeEvery(AUTH_ACTIONS.API_LOGOUT_REQUEST, doLogout);
 }
 
 

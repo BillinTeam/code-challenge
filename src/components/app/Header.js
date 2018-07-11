@@ -5,18 +5,20 @@ class Header extends Component {
     render() {
         return (
             <nav className="topbar navbar navbar-expand-lg navbar-dark bg-primary">
+                <div className="container">
+                    <a className="navbar-brand" href="#">CHALLENGE</a>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item" >
+                                <Link to="/" className="nav-link" href="#">Articles</Link>
+                            </li>
+                        </ul>
 
-                <a className="navbar-brand" href="#">CHALLENGE</a>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item" >
-                            <Link to="/" className="nav-link" href="#">Articles</Link>
-                        </li>
-                    </ul>
-                    
-                        <UserPanel/>
+                        <UserPanel />
 
+                    </div>
                 </div>
+                
             </nav>
         );
     }
