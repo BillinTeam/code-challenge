@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import UserPanel from '../../containers/UserPanel';
+import LoadingIndicator from '../../containers/LoadingIndicator';
 class Header extends Component {
     render() {
         return (

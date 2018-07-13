@@ -3,13 +3,13 @@ import { withRouter } from 'react-router-dom'
 import { connect } from "react-redux";
 import { selectArticle, createArticle, updateArticle } from './../../actions/index';
 
-import TagsInput from 'react-tagsinput'
-import 'react-tagsinput/react-tagsinput.css' // If using WebPack and style-loader.
+import TagsInput from 'react-tagsinput';
+import 'react-tagsinput/react-tagsinput.css';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-
+import ErrorList from '../ErrorList';
 
 
 class ArticleForm extends Component {
@@ -114,6 +114,7 @@ class ArticleForm extends Component {
                     {this.actionTitle}
                 </div>
                 <div className="card-body">
+                    <ErrorList />
 
                     {/* Title input */}
                     <div className="form-group">
