@@ -21,6 +21,7 @@
     "graphiql": "^0.7.4",
     "graphql": "^0.9.6",
     "graphql-tools": "^3.0.5",
+    "joi": "^13.4.0",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.14.1",
     "mongoose": "^4.9.8",

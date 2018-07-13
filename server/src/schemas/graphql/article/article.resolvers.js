@@ -1,5 +1,5 @@
 import Article from '../../db/article';
-
+import { createArticleValidator, updateArticleValidator } from '../../../validators/article.validator';
 export function articles(vars, ctx) {
     return new Promise((resolve, reject) => {
         Article.find(null, (err, res) => {
@@ -18,27 +18,38 @@ export function article(vars, ctx) {
 }
 
 export function createArticle(vars, ctx) {
-    let input = vars.input;
-    let newArticle = new Article(input);
+    const input = vars.input;
+
     return new Promise((resolve, reject) => {
-        /* Return itself with the id */
-        newArticle.save((err, res) => {
-            err ? reject(err) : resolve(res);
+        createArticleValidator(input, (err, value) => {
+            console.error(err, value);
+            if (err)
+                return reject(err);
+            const newArticle = new Article(input);
+            /* Return itself with the id */
+            newArticle.save((err, res) => {
+                err ? reject(err) : resolve(res);
+            });
         });
     });
 }
 
 export function updateArticle(vars, ctx) {
-    let input = vars.input;
+    const input = vars.input;
     return new Promise((resolve, reject) => {
-        /* Return the whole list */
-        Article.where({ _id: input.id }).update(input, (err, res) => {
+        updateArticleValidator(input, (err, value) => {
+            console.error(err, value);
             if (err)
                 return reject(err);
-            Article.find((err, res) => {
-                err ? reject(err) : resolve(res);
-            })
-        });
+            /* Return the whole list */
+            Article.where({ _id: input.id }).update(input, (err, res) => {
+                if (err)
+                    return reject(err);
+                Article.find((err, res) => {
+                    err ? reject(err) : resolve(res);
+                })
+            });
+        })
     });
 }
 
