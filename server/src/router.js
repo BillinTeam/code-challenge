@@ -27,7 +27,7 @@ export default function router(app) {
             var token = jwt.sign({ id: user._id }, Config.SECRET, {
                 expiresIn: 86400 // expires in 24 hours
             });
-            res.status(200).send({ me: user, auth: true, token: token });
+            res.status(200).send({ data: {me: user, auth: true, token: token} });
         });
     });
     /**
