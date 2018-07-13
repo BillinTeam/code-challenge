@@ -6,9 +6,9 @@ function* fetchArticles(action) {
 
   try {
     const res = yield call(articleService.getArticles);
-    yield put({ type: ARTICLE_ACTIONS.API_GET_ARTICLES_SUCCESS, articles: res.articles });
+    yield put({ type: ARTICLE_ACTIONS.API_GET_ARTICLES_SUCCESS, articles: res.data.articles });
   } catch (e) {
-    yield put({ type: ARTICLE_ACTIONS.API_GET_ARTICLES_SUCCESS_FAILURE, error: e.message });
+    yield put({ type: ARTICLE_ACTIONS.API_GET_ARTICLES_SUCCESS_FAILURE , errors: [e]});
   }
 }
 
@@ -16,18 +16,18 @@ function* fetchArticle(action) {
 
   try {
     const res = yield call(articleService.getArticle, action.articleId);
-    yield put({ type: ARTICLE_ACTIONS.API_GET_ARTICLE_SUCCESS, article: res.article });
+    yield put({ type: ARTICLE_ACTIONS.API_GET_ARTICLE_SUCCESS, article: res.data.article });
   } catch (e) {
-    yield put({ type: ARTICLE_ACTIONS.API_GET_ARTICLE_FAILURE, article: null, error: true, message: e.message });
+    yield put({ type: ARTICLE_ACTIONS.API_GET_ARTICLE_FAILURE, article: null , errors: [e]});
   }
 }
 
 function* createArticle(action) {
   try {
     const res = yield call(articleService.createArticle, action.article);
-    yield put({ type: ARTICLE_ACTIONS.API_CREATE_ARTICLE_SUCCESS, article: res.article });
+    yield put({ type: ARTICLE_ACTIONS.API_CREATE_ARTICLE_SUCCESS, article: res.data.article, errors: res.errors || null });
   } catch (e) {
-    yield put({ type: ARTICLE_ACTIONS.API_CREATE_ARTICLE_FAILURE, article: null, error: true, message: e.message });
+    yield put({ type: ARTICLE_ACTIONS.API_CREATE_ARTICLE_FAILURE, article: null, errors: [e] });
 
   }
 }
@@ -35,9 +35,9 @@ function* createArticle(action) {
 function* updateArticle(action) {
   try {
     const res = yield call(articleService.updateArticle, action.article);
-    yield put({ type: ARTICLE_ACTIONS.API_UPDATE_ARTICLE_SUCCESS, article: res.articles });
+    yield put({ type: ARTICLE_ACTIONS.API_UPDATE_ARTICLE_SUCCESS, article: res.data.articles });
   } catch (e) {
-    yield put({ type: ARTICLE_ACTIONS.API_UPDATE_ARTICLE_FAILURE, article: null, error: true, message: e.message });
+    yield put({ type: ARTICLE_ACTIONS.API_UPDATE_ARTICLE_FAILURE, article: null, errors: [e] });
 
   }
 }
@@ -45,9 +45,9 @@ function* updateArticle(action) {
 function* deleteArticles(action) {
   try {
     const res = yield call(articleService.deleteArticles, action.articleIds);
-    yield put({ type: ARTICLE_ACTIONS.API_DELETE_ARTICLES_SUCCESS, articles: res.articles });
+    yield put({ type: ARTICLE_ACTIONS.API_DELETE_ARTICLES_SUCCESS, articles: res.data.articles, errors: res.data.errors || null });
   } catch (e) {
-    yield put({ type: ARTICLE_ACTIONS.API_DELETE_ARTICLES_FAILURE, error: true, message: e.message });
+    yield put({ type: ARTICLE_ACTIONS.API_DELETE_ARTICLES_FAILURE, errors: [e.message] });
 
   }
 }
@@ -55,9 +55,9 @@ function* deleteArticles(action) {
 function* doLogin(action) {
   try {
     const res = yield call(authService.login, action.credentials);
-    yield put({ type: AUTH_ACTIONS.API_AUTH_SUCCESS, me: res.me });
+    yield put({ type: AUTH_ACTIONS.API_AUTH_SUCCESS, me: res.data.me, errors: res.data.errors || null });
   } catch (e) {
-    yield put({ type: AUTH_ACTIONS.API_AUTH_FAILURE, error: true, message: e.message });
+    yield put({ type: AUTH_ACTIONS.API_AUTH_FAILURE, errors: [e.message] });
 
   }
 }
@@ -65,9 +65,9 @@ function* doLogin(action) {
 function* doLogout(action) {
   try {
     yield call(authService.logout, action.credentials);
-    yield put({ type: AUTH_ACTIONS.API_LOGOUT_SUCCESS });
+    yield put({ type: AUTH_ACTIONS.API_LOGOUT_SUCCESS, errors: action.errors || null });
   } catch (e) {
-    yield put({ type: AUTH_ACTIONS.API_LOGOUT_FAILURE, error: true, message: e.message });
+    yield put({ type: AUTH_ACTIONS.API_LOGOUT_FAILURE, errors: [e.message] });
 
   }
 }
