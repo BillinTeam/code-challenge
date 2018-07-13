@@ -3,6 +3,40 @@
     border-radius: 0;
 }
 
+.alert > ul{
+    margin: 0;
+}
+
+  .loader-appear {opacity: 0.01;}
+
+.loader-appear.loader-appear-active {
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+.api-fetching-overlay{
+    text-align: center;
+
+    background: rgba(255,255,255,0.7);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 99;
+}
+.api-fetching-indicator{
+    background: rgba(255,255,255,0.7);
+    margin: 100px auto;
+    padding: 30px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 3px;
+    color:#fff;
+    z-index: 100;
+    font-weight: bold;
+    font-size: 20px;
+    max-width: 200px;
+}
+
 .topbar{
     margin-bottom: 30px;
 }
