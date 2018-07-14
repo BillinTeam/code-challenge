@@ -1,18 +1,48 @@
 import Article from '../../db/article';
 import { createArticleValidator, updateArticleValidator } from '../../../validators/article.validator';
-import { cleanNullValues } from '../../../utils';
+
 
 export function articles(vars, ctx) {
+    let filters = null;
+    if (vars.filters)
+        filters = prepareFilters(vars.filters || false);
 
-    let filters = vars.filters ? cleanNullValues(vars.filters) : null;
-    if (filters && filters.tags) {
-        filters.tags = { $in: vars.filters.tags };
-    }
     return new Promise((resolve, reject) => {
-
-
-        Article.find(vars.filters, (err, res) => {
+        Article.find(filters, (err, res) => {
             err ? reject(err) : resolve(res);
+        });
+    });
+}
+
+
+function prepareFilters(filters) {
+    let or = [];
+
+    for (let key in filters) {
+        if (key == 'published') continue;
+        if (Array.isArray(filters[key])){
+            if(filters[key].length > 0){}
+                or.push({ [key]: { $in: filters[key] } })
+            delete filters[key];
+        }
+    }
+    if (or.length > 0)
+        filters.$or = or;
+
+    return filters;
+
+}
+
+
+export function availableFilters(vars, ctx) {
+
+    return new Promise((resolve, reject) => {
+        Article.find({ published: true }).distinct('author', (err, authors) => {
+            if (err) reject(err);
+
+            Article.find({ published: true }).distinct('tags', (err, tags) => {
+                err ? reject(err) : resolve({ authors, tags });
+            });
         });
     });
 }

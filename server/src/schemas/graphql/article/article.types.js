@@ -18,7 +18,6 @@ export const ArticleType = new GraphQLObjectType({
 });
 
 
-
 export const ArticleAndArticlesType = new GraphQLObjectType({
     name: 'ArticleAndArticles',
     description: 'Article modified and article list',
@@ -27,6 +26,17 @@ export const ArticleAndArticlesType = new GraphQLObjectType({
         articles: { type: new GraphQLList(ArticleType) }
     },
 });
+
+export const ArticleFiltersType = new GraphQLObjectType({
+    name: 'ArticleFilters',
+    description: 'List of filters available for articles',
+    fields: {
+        authors: { type: new GraphQLList(GraphQLString) },
+        tags: { type: new GraphQLList(GraphQLString) }
+    },
+});
+
+
 
 export const ArticleIdsInputType = new GraphQLInputObjectType({
     name: 'ArticleIdsInput',
@@ -40,7 +50,7 @@ export const ArticleFilterInputType = new GraphQLInputObjectType({
     name: 'ArticleFilterInput',
     description: 'Article filters',
     fields: {
-        author: { type: GraphQLString },
+        author: { type: new GraphQLList(GraphQLString) },
         published: { type: GraphQLBoolean },
         tags: { type: new GraphQLList(GraphQLString) },
     },

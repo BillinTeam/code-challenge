@@ -1,6 +1,6 @@
 import { GraphQLString, GraphQLList} from 'graphql';
-import { ArticleType, ArticleFilterInputType } from './article.types';
-import { article, articles } from './article.resolvers';
+import { ArticleType, ArticleFilterInputType, ArticleFiltersType } from './article.types';
+import { article, articles, availableFilters } from './article.resolvers';
 
 const articleQueries = {
     articles: {
@@ -9,6 +9,10 @@ const articleQueries = {
             filters: { type: ArticleFilterInputType }
         },
         resolve(_, vars, ctx) { return articles(vars, ctx) },
+    },
+    availableFilters: {
+        type: ArticleFiltersType,
+        resolve(_, vars, ctx) { return availableFilters(vars, ctx) },
     },
     article: {
         type: ArticleType,
