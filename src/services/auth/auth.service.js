@@ -4,18 +4,16 @@ import { getAuthHeader } from '../utils';
 class AuthService {
 
   login(credentials) {
-    return new Promise((resolve, reject) => {
-      axios.post(Config.BACKEND_URL + 'login', { credentials }, { headers: getAuthHeader() })
-        .then(response => resolve(response.data))
-        .catch(error => reject(error));
-    });
+      return axios.post(Config.BACKEND_URL + 'login', { credentials }, { headers: getAuthHeader() })
+        .then(response => response.data)
+        .catch(error => error.repsonse.data);
   }
   logout() {
-    return new Promise((resolve, reject) => {
+    
       axios.get(Config.BACKEND_URL + 'logout', { headers: getAuthHeader() })
-        .then(response => resolve(response.data))
-        .catch(error => reject(error));
-    });
+        .then(response => response.data)
+        .catch(error => error.repsonse.data);
+    
   }
 }
 

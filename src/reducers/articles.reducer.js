@@ -5,14 +5,14 @@ export default function (state = null, action) {
 
   switch (action.type) {
     case ARTICLE_ACTIONS.API_GET_ARTICLES_REQUEST:
-      return state
+      return state;
 
     case ARTICLE_ACTIONS.API_GET_ARTICLES_SUCCESS:
     case ARTICLE_ACTIONS.API_DELETE_ARTICLES_SUCCESS:
       return action.articles || [];
 
     case ARTICLE_ACTIONS.API_GET_ARTICLES_FAILURE:
-      return { ...state, fetching: false };
+      return [];
 
     default:
       return state;

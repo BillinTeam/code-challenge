@@ -25,9 +25,11 @@ export const selectArticle = articleId => ({
   articleId
 })
 
-export const fetchArticles = () => ({
-  type: ARTICLE_ACTIONS.API_GET_ARTICLES_REQUEST
+export const fetchArticles = (filters) => ({
+  type: ARTICLE_ACTIONS.API_GET_ARTICLES_REQUEST,
+  filters
 })
+
 
 export const createArticle = article => ({
   type: ARTICLE_ACTIONS.API_CREATE_ARTICLE_REQUEST,

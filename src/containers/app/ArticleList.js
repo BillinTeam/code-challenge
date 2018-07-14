@@ -3,11 +3,15 @@ import ArticleListItem from './ArticleListItem';
 import { withRouter } from 'react-router-dom'
 import { connect } from "react-redux";
 import { fetchArticles } from '../../actions/article.actions';
-
+import ErrorList from '../ErrorList';
 class ArticleList extends Component {
-
+    state = {
+        published: true,
+        tags: null,
+        author: null
+    };
     componentDidMount() {
-        this.props.fetchArticles();
+        this.props.fetchArticles(this.state);
     }
 
     renderList() {
@@ -17,12 +21,10 @@ class ArticleList extends Component {
     }
     render() {
 
-        if (!this.props.articles)
-            return null;
-
         return <div className="article-list">
+        <ErrorList />
             <div className="row">
-                {this.renderList()}
+                {this.props.articles && this.renderList()}
             </div>
         </div>
     }
@@ -37,7 +39,7 @@ const mapStateToProps = state => {
 
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    fetchArticles: () => dispatch(fetchArticles())
+    fetchArticles: (filters) => dispatch(fetchArticles(filters))
 })
 
 
