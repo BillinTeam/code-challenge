@@ -15,12 +15,14 @@ class Article extends Component {
         if (!this.props.article)
             return null;
 
-        const {title, content } = this.props.article;
+        const { title, content } = this.props.article;
 
         return (
-            <div className="article">
-                <h1>{title}</h1>
-                <div dangerouslySetInnerHTML={{__html: content}} ></div>
+            <div className="container">
+                <div className="article">
+                    <h1>{title}</h1>
+                    <div dangerouslySetInnerHTML={{ __html: content }} ></div>
+                </div>
             </div>
         );
     }

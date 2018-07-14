@@ -1,12 +1,14 @@
-import { ARTICLES_QUERY, ARTICLE_CREATE, ARTICLE_UPDATE, ARTICLE_DELETE, ARTICLE_QUERY, ARTICLE_LIST_FIELDS } from './article.queries';
+import { ARTICLES_QUERY, ARTICLE_CREATE, ARTICLE_UPDATE, ARTICLE_DELETE,AVAILABLE_FILTERS, ARTICLE_QUERY, ARTICLE_LIST_FIELDS } from './article.queries';
 import { graphqlRequest } from '../utils';
 
 
 class ArticleService {
 
   getArticles(filters = {}) {
-    
     return graphqlRequest(ARTICLES_QUERY(ARTICLE_LIST_FIELDS), {filters: filters});
+  }
+  getAvailableFilters() {
+    return graphqlRequest(AVAILABLE_FILTERS);
   }
   getArticle(articleId) {
     return graphqlRequest(ARTICLE_QUERY, { articleId })

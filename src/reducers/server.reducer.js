@@ -1,6 +1,6 @@
 /// action types
 
-import { ARTICLE_ACTIONS, AUTH_ACTIONS, isApiRequest, isApiSuccess, isApiFailure } from '../actions';
+import { isApiRequest, isApiSuccess, isApiFailure } from '../actions';
 
 const initState = {
   fetching: false,

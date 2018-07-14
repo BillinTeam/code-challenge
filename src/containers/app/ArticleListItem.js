@@ -1,31 +1,38 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class ArticleListItem extends Component {
 
     get photoUrl() {
-        return "https://loremflickr.com/800/450/software?random="+Math.floor(Math.random()*1000);
+        return "https://loremflickr.com/800/450/software?random=" + Math.floor(Math.random() * 1000);
     }
-    get articleUrl(){
-        return "/read/"+this.props.article.id;
+    get articleUrl() {
+        return "/read/" + this.props.article.id;
     }
+
     render() {
-        const {title, excerpt, author } = this.props.article;
-        return (<div className="col-sm-6 col-md-4">
+        const { title, excerpt, author, tags } = this.props.article;
+        const tagList = tags.map((tag) => {
+            return <li key={tag} onClick={()=>this.props.toggleFilter('tags', tag)} className="list-inline-item">
+                        <span className="badge badge-warning">{tag}</span></li>;
+        });
+
+        return (
             <div className="article">
-                <img className="img-fluid" alt={title} src={this.photoUrl} />
-                <div className="meta">
-                    <h2 className="title"><b>{title}</b></h2>
-                    <p className="author">Written by {author}</p>
-                    <div className="excerpt">{excerpt && excerpt.substr(0, 100) + "..."}</div>
-                    <div className="text-right">
-                        <Link className="btn btn-primary" to={this.articleUrl}>
-                            Read more
-                        </Link>
+
+                <Link to={this.articleUrl}>
+                    <img className="img-fluid" alt={title} src={this.photoUrl} />
+                    <div className="text">
+                        <h2 className="title">{title}</h2>
+                        <div className="excerpt">{excerpt}</div>
                     </div>
+                </Link>
+                <div className="meta">
+                    <p className="author">by <span onClick={()=>this.props.toggleFilter('author',author)}>{author}</span></p>
+                    <div className="tags"><ul className="list-inline">{tagList}</ul></div>
                 </div>
-            </div>
-        </div>);
+            </div >
+        );
     }
 }
 
