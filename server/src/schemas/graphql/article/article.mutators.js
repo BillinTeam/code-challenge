@@ -1,17 +1,17 @@
 import { GraphQLList, GraphQLNonNull } from 'graphql';
 import { createArticle, updateArticle, deleteArticles } from './article.resolvers';
-import { ArticleType, ArticleInputType, ArticleIdsInputType } from './article.types';
+import { ArticleType, ArticleInputType, ArticleAndArticlesType, ArticleIdsInputType } from './article.types';
 
 const articleMutators = {
     createArticle: {
-        type: ArticleType,
+        type: ArticleAndArticlesType,
         args: { input: { type: new GraphQLNonNull(ArticleInputType) } },
         resolve: async (_, vars, ctx) => { 
             return createArticle(vars, ctx)
         },
     },
     updateArticle: {
-        type: ArticleType,
+        type: ArticleAndArticlesType,
         args: { input: { type: new GraphQLNonNull(ArticleInputType) } },
         resolve: async (_, vars, ctx) => { return updateArticle(vars, ctx) },
     },
