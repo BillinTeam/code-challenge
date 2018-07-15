@@ -18,7 +18,7 @@ function* fetchFilters(action) {
 
   try {
     const res = yield call(articleService.getFilters);
-    yield put({ type: articleTypes.GET_FILTERS_SUCCESS, availableFilters: res.availableFilters, errors: res.errors || false });
+    yield put({ type: articleTypes.GET_FILTERS_SUCCESS, filters: res.filters, errors: res.errors || false });
   } catch (e) {
     yield put({ type: articleTypes.GET_FILTERS_FAILURE, errors: e.errors });
   }

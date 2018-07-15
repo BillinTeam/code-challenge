@@ -13,7 +13,6 @@ class ArticleList extends Component {
     componentDidMount() {
         this.fetch();
         this.props.fetchFilters();
-
         window.addEventListener('scroll', this.fixFilter.bind(this));
     }
 
@@ -33,7 +32,7 @@ class ArticleList extends Component {
     }
     clearFilters() {
         this.setState({
-            authors: [],
+            author: [],
             tags: []
         })
         this.fetch({});
@@ -67,7 +66,7 @@ class ArticleList extends Component {
 
     render() {
 
-        const { authors, tags } = this.props.filters;
+        const { author, tags } = this.props.filters;
         return (
             <div className="container-fluid article-list">
                 <div ref={this.myFilters}>
@@ -76,7 +75,7 @@ class ArticleList extends Component {
                         clearFilters={this.clearFilters.bind(this)}
                         toggleFilter={this.toggleFilter.bind(this)}
                         filters={this.state}
-                        author={authors}
+                        author={author}
                         tags={tags} />
                 </div>
                 <div className="row">

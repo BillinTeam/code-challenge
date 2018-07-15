@@ -1,7 +1,7 @@
-import { connect } from 'react-redux'
-import ArticleList from './ArticleList';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { articleActions } from '../../../state/ducks/articles';
+import ArticleList from './ArticleList';
 
 const mapStateToProps = state => {
     return {
@@ -13,8 +13,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
     fetchArticles: (filters) => dispatch(articleActions.fetchArticles(filters)),
-    fetchFilters: (filters) => dispatch(articleActions.fetchFilters())
+    fetchFilters: () => dispatch(articleActions.fetchFilters())
 })
 
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps))(ArticleList);
+
+
+
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(ArticleList));

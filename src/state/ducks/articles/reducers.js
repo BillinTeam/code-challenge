@@ -6,7 +6,7 @@ const INIT_STATE_FILTERS = {
   tags: []
 };
 
-const articlesReducer = (state = null, action) => {
+export const articlesReducer = (state = null, action) => {
 
   switch (action.type) {
     case types.GET_ARTICLES_REQUEST:
@@ -24,7 +24,7 @@ const articlesReducer = (state = null, action) => {
   }
 }
 
-const articleReducer = (state = null, action) => {
+export const articleReducer = (state = null, action) => {
 
   switch (action.type) {
     case types.GET_ARTICLE_REQUEST:
@@ -44,14 +44,14 @@ const articleReducer = (state = null, action) => {
 }
 
 
-const filtersReducer = (state = INIT_STATE_FILTERS, action) => {
+export const filtersReducer = (state = INIT_STATE_FILTERS, action) => {
 
   switch (action.type) {
     case types.GET_FILTERS_REQUEST:
       return state;
 
       case types.GET_FILTERS_SUCCESS:
-      return action.availableFilters;
+      return action.filters;
 
     case types.GET_FILTERS_FAILURE:
       return state;

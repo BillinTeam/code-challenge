@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Article from './Article';
-import * as articleActions from '../../../state/ducks/articles';
+import { articleActions } from '../../../state/ducks/articles';
 
 const mapStateToProps = state => {
     return {

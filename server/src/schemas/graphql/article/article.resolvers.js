@@ -34,14 +34,14 @@ function prepareFilters(filters) {
 }
 
 
-export function availableFilters(vars, ctx) {
+export function filters(vars, ctx) {
 
     return new Promise((resolve, reject) => {
-        Article.find({ published: true }).distinct('author', (err, authors) => {
+        Article.find({ published: true }).distinct('author', (err, author) => {
             if (err) reject(err);
 
             Article.find({ published: true }).distinct('tags', (err, tags) => {
-                err ? reject(err) : resolve({ authors, tags });
+                err ? reject(err) : resolve({ author, tags });
             });
         });
     });

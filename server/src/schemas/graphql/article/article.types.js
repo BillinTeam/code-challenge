@@ -31,7 +31,7 @@ export const ArticleFiltersType = new GraphQLObjectType({
     name: 'ArticleFilters',
     description: 'List of filters available for articles',
     fields: {
-        authors: { type: new GraphQLList(GraphQLString) },
+        author: { type: new GraphQLList(GraphQLString) },
         tags: { type: new GraphQLList(GraphQLString) }
     },
 });

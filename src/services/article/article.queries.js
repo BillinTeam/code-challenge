@@ -19,10 +19,10 @@ export const ARTICLE_CREATE = `mutation ($input: ArticleInput!){
     }
   }
 }`;
-export const AVAILABLE_FILTERS = `{
-  availableFilters{
+export const FILTERS = `{
+  filters{
     tags
-    authors
+    author
   }
 }`;
 export const ARTICLE_UPDATE = `mutation ($input: ArticleInput!){

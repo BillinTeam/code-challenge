@@ -4,6 +4,7 @@ export default class ArticleListFilters extends Component {
 
 
     renderFilterList(name) {
+
         return this.props[name].map((val) => {
             const checked = this.props.filters[name].indexOf(val) > -1;
             return (

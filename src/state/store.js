@@ -9,7 +9,7 @@ import rootReducer from "./ducks";
 
 export const history = createBrowserHistory();
 
-console.log('root',rootReducer);
+
 
 const persistConfig = {
     key: 'root',
