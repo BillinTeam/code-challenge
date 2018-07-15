@@ -1,0 +1,123 @@
+.form-control{
+    line-height: 1.85;
+    border-radius: 0;
+}
+
+
+
+.alert > ul{
+    margin: 0;
+}
+
+  .loader-appear {opacity: 0.01;}
+
+.loader-appear.loader-appear-active {
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+.api-fetching-overlay{
+    text-align: center;
+
+    background: rgba(255,255,255,0.7);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 99;
+}
+.api-fetching-indicator{
+    background: rgba(255,255,255,0.7);
+    margin: 100px auto;
+    padding: 30px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 3px;
+    color:#fff;
+    z-index: 100;
+    font-weight: bold;
+    font-size: 20px;
+    max-width: 200px;
+}
+
+.topbar{
+    margin-bottom: 30px;
+}
+
+.article-list .article{
+    border:4px solid #ededed;
+    margin-bottom:20px;
+    transition: 0.25s all;
+    color: #000;
+}
+.article-list .article a{color: inherit}
+.article-list .article a:hover{text-decoration: none}
+.article-list .article .tags ul{margin: 0}
+.article-list .article .tags .badge{
+    white-space: normal;
+    text-align: left;
+    cursor: pointer;
+}
+.article-list .article:hover{
+    border-color: #ffc107;
+}
+.article-list .article .title{
+    font-size:20px;
+}
+.article-list .article .author{font-style:italic}
+.article-list .article .author span{
+    border-bottom:2px dashed #ffc107;
+    margin-bottom: -2px;
+    cursor: pointer;
+    font-style: normal;
+}
+.article-list .article .text,
+.article-list .article .meta{
+    padding: 10px;
+}
+
+.article-filters .filter ul{
+    max-height: 200px;
+    overflow: scroll;
+    border-bottom: 2px solid #ccc;
+}
+
+.article-filters .filter label{
+    padding:3px 0;   
+}
+.article-filters .filter .checked label{
+    padding:3px 5px;   
+}
+.article-filters .filter .title{
+    border-bottom:2px solid #000;
+}
+.article-filters .filter input{
+    display: none;
+}
+
+
+.article-list .article .tags .badge,
+.article-filters .filter li .badge{
+    white-space: normal;
+    text-align: left;
+    cursor: pointer;
+}
+
+.article-filters .filter li .badge{
+    margin-bottom: 0;
+}
+
+.article-list{
+    padding-left:260px;
+}
+.article-filters {
+    width:200px;
+    left:20px;
+    position: absolute;
+}
+
+.article-filters-stick .article-filters{
+    position: fixed;
+    top:30px;
+    bottom:30px;
+    overflow: scroll;
+}
