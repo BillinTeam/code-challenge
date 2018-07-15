@@ -7,7 +7,7 @@ class ArticleService {
   getArticles(filters = {}) {
     return graphqlRequest(ARTICLES_QUERY(ARTICLE_LIST_FIELDS), {filters: filters});
   }
-  getAvailableFilters() {
+  getFilters() {
     return graphqlRequest(AVAILABLE_FILTERS);
   }
   getArticle(articleId) {
