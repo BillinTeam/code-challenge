@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import request from './request';
-import { ARTICLES_QUERY } from './queries';
+import request from '../api/request';
+import { ARTICLES_QUERY } from '../api/queries';
+import { Header } from './header';
+import { CardsContainer } from './cards-container';
+import { Footer } from './footer';
 
-class App extends Component {
+export default class App extends Component {
   // definition
   constructor(props) {
     super(props);
@@ -22,11 +25,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h2>Billin code challenge</h2>
+        <Header />
+        <CardsContainer />
+        <Footer />
         <pre>{JSON.stringify(this.state.articles, null, 2)}</pre>
       </div>
     );
   }
 }
-
-export default App;
