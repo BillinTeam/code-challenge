@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import request from '../api/request';
 import { ARTICLES_QUERY } from '../api/queries';
-import Card from '../components/card';
+import Card from '../components/card/card';
 
 const gridStyle = {
   display: 'grid',
