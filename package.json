@@ -21,7 +21,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "lint": "eslint --fix src/",
-    "watch": "node scripts/watch.js"
+    "lint": "eslint --fix src/"
   }
 }
