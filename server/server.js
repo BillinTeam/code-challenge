@@ -13,9 +13,9 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', req.headers.origin);
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') {
-    res.end();
+    return res.end();
   }
-  next();
+  return next();
 });
 app.use('/graphql', GraphHTTP({
   schema: Schema,
